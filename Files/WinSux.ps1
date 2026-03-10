@@ -2596,6 +2596,7 @@ Start-Sleep -Seconds 10
 
         Write-Host "REMOVE EDGE`n"
         ## c:\program files (x86)\microsoft
+        ## powershell -NoExit -c "reg query 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages' | findstr 'Microsoft-Windows-Internet-Browser-Package' | findstr '~~'"
 
 # stop edge running
 $stop = "backgroundTaskHost", "Copilot", "CrossDeviceResume", "GameBar", "MicrosoftEdgeUpdate", "msedge", "msedgewebview2", "OneDrive", "OneDrive.Sync.Service", "OneDriveStandaloneUpdater", "Resume", "RuntimeBroker", "Search", "SearchHost", "Setup", "StoreDesktopExtension", "WidgetService", "Widgets"
@@ -2658,6 +2659,16 @@ cmd /c "sc stop `"$($service.Name)`" >nul 2>&1"
 cmd /c "sc delete `"$($service.Name)`" >nul 2>&1"
 }
 
+# windows 10 remove microsoft edge legacy package
+$edgeLegacyPackage = (Get-ChildItem "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" -ErrorAction SilentlyContinue |
+Where-Object { $_.PSChildName -like "*Microsoft-Windows-Internet-Browser-Package*~~*" }).PSChildName
+if ($edgeLegacyPackage) {
+$regPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\$edgeLegacyPackage"
+cmd /c "reg add `"$($regPath.Replace('HKLM:\', 'HKLM\'))`" /v Visibility /t REG_DWORD /d 1 /f >nul 2>&1"
+cmd /c "reg delete `"$($regPath.Replace('HKLM:\', 'HKLM\'))\Owners`" /va /f >nul 2>&1"
+dism /online /Remove-Package /PackageName:$edgeLegacyPackage /quiet /norestart
+}
+
         Write-Host "REMOVE UWP APPS`n"
         ## ms-settings:appsfeatures
         ## powershell -noexit -command "get-appxpackage | select name | format-table -autosize"
@@ -2676,7 +2687,7 @@ $_.Name -notlike '*Microsoft.WebpImageExtension*' -and
 $_.Name -notlike '*Microsoft.Windows.Photos*' -and
 $_.Name -notlike '*Microsoft.WindowsNotepad*' -and
 $_.Name -notlike '*Microsoft.WindowsStore*' -and
-$_.Name -notlike '*MicrosoftWindows.Client.CBS*' -and
+$_.Name -notlike '*CBS*' -and
 $_.Name -notlike '*NVIDIACorp.NVIDIAControlPanel*'
 } | Remove-AppxPackage -ErrorAction SilentlyContinue
 
@@ -2708,10 +2719,6 @@ Remove-WindowsCapability -Online -Name $_.Name | Out-Null
         ## c:\windows\system32\optionalfeatures.exe
 		## powershell -noexit -command "dism /online /get-features /format:table"
 
-# install netfx3
-DISM /Online /Enable-Feature /FeatureName:NetFx3 /All /NoRestart /Quiet
-# install directplay
-DISM /Online /Enable-Feature /FeatureName:DirectPlay /All /NoRestart /Quiet
 Get-WindowsOptionalFeature -Online | Where-Object {
 $_.FeatureName -notlike '*NetFx3*' -and
 $_.FeatureName -notlike '*LegacyComponents*' -and
