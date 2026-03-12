@@ -3267,7 +3267,7 @@ cmd /c "reg delete `"HKCU\Software\Microsoft\Windows\CurrentVersion\RunOnce`" /v
 # delete startcn task
 Unregister-ScheduledTask -TaskName "StartCN" -Confirm:$false -ErrorAction SilentlyContinue
 
-# delete amd audio coprocessr dsp driver
+# delete amd audio coprocessor dsp driver
 cmd /c "sc stop `"amdacpbus`" >nul 2>&1"
 cmd /c "sc delete `"amdacpbus`" >nul 2>&1"
 
