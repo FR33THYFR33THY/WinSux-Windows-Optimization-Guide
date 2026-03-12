@@ -1,26 +1,12 @@
-# WinSux-Windows-Optimization-Guide
+# WinSux
+- Windows one click guide for power users
 
-## Introduction
-Windows one click guide for power users. <br> Covering all aspects, this one click guide simplifies the process optimizing your new or current installation.
-
-## Requirements
-- Windows 10 or 11
+# Requirements
+- Windows 10/11 Home/Pro/LTSC/IOT/Server
 - Online access
 
-## Features
-- Compatible with Windows 10 and Windows 11
-- Scripts include #notes for reference
-- Scripts run in any directory
-- Caters to all skill levels
-- Minimal file size
-- Open source
-- Portable
-
-## Updates
-This guide is continuously updated with improvements and bug fixes. <br> Make sure to always download the latest version from GitHub.
-
 # IWR
-- Paste this code into an elevated Administrator PowerShell window.
+- Paste this code into an elevated Administrator PowerShell/Terminal window
 ```
 iwr https://github.com/FR33THYFR33THY/WinSux-Windows-Optimization-Guide/raw/refs/heads/main/Files/WinSux.ps1 -useb | iex
 ```
