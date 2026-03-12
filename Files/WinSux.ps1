@@ -1407,7 +1407,7 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\Software\Microsoft\Lighting]
 "AmbientLightingEnabled"=dword:00000000
 
-; disable compatible apps in the forground always control lighting 
+; disable compatible apps in the foreground always control lighting 
 [HKEY_CURRENT_USER\Software\Microsoft\Lighting]
 "ControlledByForegroundApp"=dword:00000000
 
