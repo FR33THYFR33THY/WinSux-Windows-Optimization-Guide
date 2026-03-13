@@ -2648,16 +2648,14 @@ cmd /c "sc delete `"$($service.Name)`" >nul 2>&1"
 }
 
 # windows 10 remove microsoft edge legacy package
-try {
 $EdgeLegacyPackage = (Get-ChildItem "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages" -ErrorAction SilentlyContinue |
 Where-Object { $_.PSChildName -like "*Microsoft-Windows-Internet-Browser-Package*~~*" }).PSChildName
 if ($EdgeLegacyPackage) {
 $regPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\Packages\$EdgeLegacyPackage"
 cmd /c "reg add `"$($regPath.Replace('HKLM:\', 'HKLM\'))`" /v Visibility /t REG_DWORD /d 1 /f >nul 2>&1"
 cmd /c "reg delete `"$($regPath.Replace('HKLM:\', 'HKLM\'))\Owners`" /va /f >nul 2>&1"
-dism /online /Remove-Package /PackageName:$EdgeLegacyPackage /quiet /norestart
+dism /online /Remove-Package /PackageName:$EdgeLegacyPackage /quiet /norestart 2>$null | Out-Null
 }
-} catch { }
 
         Write-Host "REMOVE UWP APPS`n"
         ## ms-settings:appsfeatures
