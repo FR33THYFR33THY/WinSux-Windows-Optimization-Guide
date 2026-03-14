@@ -12,6 +12,9 @@ iwr https://github.com/FR33THYFR33THY/WinSux-Windows-Optimization-Guide/raw/refs
 ```
 
 ## Guide
-[Video](<https://www.youtube.com/fr33thy>)
+[Video](<https://youtu.be/JJvW9e4X7k0>)
 
-[![Video](https://yt3.googleusercontent.com/fBs1XMUdkUFcC3cuHa3x0Up4hlY2abZT1H0NYvq0D9SyjJzo4Kbpy8lTzYYV6esp4cGbN_Rm=w2120-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj)]([https://www.youtube.com/fr33thy](https://www.youtube.com/fr33thy))
+[![Video](https://img.youtube.com/vi/JJvW9e4X7k0/maxresdefault.jpg)]([https://youtu.be/JJvW9e4X7k0](https://youtu.be/JJvW9e4X7k0))
+
+# Patch Notes
+- 3/14/2025 11:55AM Removed disable ulps (causes performance issues with HAGS on 9000 series AMD cards)

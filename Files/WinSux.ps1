@@ -3330,14 +3330,6 @@ Start-Sleep -Seconds 30
 Stop-Process -Name "RadeonSoftware" -Force -ErrorAction SilentlyContinue
 Start-Sleep -Seconds 2
 
-# disable ulps
-$subkeys = Get-ChildItem -Path "Registry::HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}" -Force -ErrorAction SilentlyContinue
-foreach($key in $subkeys){
-if ($key -notlike '*Configuration'){
-reg add "$key" /v "EnableUlps" /t REG_DWORD /d "0" /f | Out-Null
-}
-}
-
 # import amd software adrenalin edition settings
 # system
 # manual check for updates
